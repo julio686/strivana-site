@@ -1,14 +1,8 @@
-// Supabase client configuration
-// NOTE: Supabase is used for the Ghost Agent (SEO, GEO, digital marketing automation)
-// For now, this is a mock implementation to prevent runtime errors when env vars are missing
-// When you're ready to use the Ghost Agent, uncomment the Supabase imports below
+// Supabase client configuration - MOCK ONLY (no real Supabase client)
+// This prevents any Supabase initialization errors when env vars are missing
 
-// import { createClient, SupabaseClient } from '@supabase/supabase-js'
-
-// Check if Supabase is configured
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string | undefined
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined
-export const isSupabaseConfigured = !!(supabaseUrl?.trim() && supabaseAnonKey?.trim())
+// Mock flag - always false since we don't use real Supabase
+export const isSupabaseConfigured = false
 
 // Create a mock query builder that supports chaining and returns proper promise
 class MockQueryBuilder {
@@ -24,7 +18,7 @@ class MockQueryBuilder {
   }
 }
 
-// Mock Supabase client for when Supabase is not configured
+// Mock Supabase client - NEVER creates a real Supabase client
 export const supabase = {
   from: () => new MockQueryBuilder(),
   storage: {
@@ -34,18 +28,6 @@ export const supabase = {
     }),
   },
 } as any
-
-// Lazy-loaded Supabase client - uncomment when ready to use Ghost Agent
-// let _supabase: any = null
-// // export async function getSupabaseClient() {
-//   if (_supabase) return _supabase
-//   if (isSupabaseConfigured && supabaseUrl && supabaseAnonKey) {
-//     const { createClient } = await import('@supabase/supabase-js')
-//     _supabase = createClient(supabaseUrl, supabaseAnonKey)
-//     return _supabase
-//   }
-//   return supabase
-// }
 
 // Job listing type matching Supabase schema
 export interface JobListing {

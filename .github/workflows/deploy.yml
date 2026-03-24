@@ -24,10 +24,15 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload dist folder
+      - name: Copy static files to build
+        run: |
+          cp public/CNAME build/CNAME || true
+          cp public/404.html build/404.html || true
+
+      - name: Upload build folder
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
+          path: './build'
 
       - name: Deploy to GitHub Pages
         id: deployment
